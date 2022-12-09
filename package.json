@@ -1,0 +1,30 @@
+{
+    "name": "com.colliemollie.shadermagic",
+    "version": "0.1.0",
+    "displayName": "ShaderMagic",
+    "description": "Shaders in URP",
+    "unity": "2022.2",
+    "dependencies": {
+    },
+    "samples": [
+        {
+            "displayName": "Blur",
+            "description": "Blur effect.",
+            "path": "Samples~/Blur"
+        },
+        {
+            "displayName": "Fade",
+            "description": "Fade effect.",
+            "path": "Samples~/Fade"
+        }
+    ],
+    "keywords": [
+        "Blur",
+        "Fade"
+    ],
+    "author": {
+        "name": "Hyunwoo Kim",
+        "email": "davidkimighty@gmail.com",
+        "url": "https://colliecollie.netlify.app"
+    }
+}
