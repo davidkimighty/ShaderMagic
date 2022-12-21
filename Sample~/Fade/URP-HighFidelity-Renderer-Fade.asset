@@ -17,7 +17,7 @@ MonoBehaviour:
     ProfileTag: Screen Fade
     FadeMaterial: {fileID: 0}
     FadeColor: {r: 0, g: 0, b: 0, a: 0}
-    FadeValue: 0.6
+    FadeValue: 0
     RenderPassEvent: 600
 --- !u!114 &-1878332245247344467
 MonoBehaviour:

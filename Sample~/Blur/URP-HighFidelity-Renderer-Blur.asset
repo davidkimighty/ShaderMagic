@@ -109,5 +109,5 @@ MonoBehaviour:
   Settings:
     RenderPassEvent: 500
     BlurMat: {fileID: 0}
-    Downsample: 2
-    BlurStrength: 3.16
+    Downsample: 1
+    BlurStrength: 0

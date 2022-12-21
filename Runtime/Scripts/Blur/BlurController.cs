@@ -8,57 +8,68 @@ namespace CollieMollie.Shaders
     public class BlurController : MonoBehaviour
     {
         #region Variable Field
-        private const float MAXVALUE = 30f;
-        private const float MINVALUE = 0f;
+        [SerializeField] private BlurFeature _blurFeature = null;
+        [SerializeField] private BlurEventChannel _blurEventChannel = null;
 
-        [SerializeField] private UniversalRendererData _rendererData = null;
-        [SerializeField] private Renderer2DData _rendererData2D = null;
+        [SerializeField] private float _maxValue = 100f;
+        [SerializeField] private float _minValue = 0f;
+        [SerializeField] private float _defaultBlurValue = 3f;
+        [SerializeField] private float _defaultDuration = 1f;
         [SerializeField] private AnimationCurve _blurCurve = null;
 
-        private BlurFeature _blurFeature = null;
+        private IEnumerator _blurAction = null;
         #endregion
 
         private void Awake()
         {
-            if (_rendererData != null)
-                _blurFeature = (BlurFeature)_rendererData.rendererFeatures.Find(feature => feature is BlurFeature);
-            else if (_rendererData2D != null)
-                _blurFeature = (BlurFeature)_rendererData2D.rendererFeatures.Find(feature => feature is BlurFeature);
+            _blurEventChannel.OnBlurInRequest += ChangeBlurAmount;
+            _blurEventChannel.OnBlurOutRequest += ChangeBlurAmount;
         }
+
+        #region Subscribers
+        private void ChangeBlurAmount(float blurAmount, float duration, Action done)
+        {
+            if (_blurAction != null)
+                StopCoroutine(_blurAction);
+
+            if (duration == 0)
+            {
+                _blurFeature.FullScreenPass.SetBlurStrength(blurAmount);
+                done?.Invoke();
+            }
+            else
+            {
+                _blurAction = Blur(duration > 0 ? blurAmount : _defaultBlurValue,
+                    duration > 0 ? duration : _defaultDuration, done);
+                StartCoroutine(_blurAction);
+            }
+        }
+
+        #endregion
 
         #region Public Functions
-        public IEnumerator BlurIn(float duration = 1f, Action done = null)
-        {
-            yield return Blur(MAXVALUE, duration);
-            done?.Invoke();
-        }
-
-        public IEnumerator BlurOut(float duration = 1f, Action done = null)
-        {
-            yield return Blur(MINVALUE, duration);
-            done?.Invoke();
-        }
-
         public IEnumerator BlurAmount(float targetValue, float duration = 1f, Action done = null)
         {
-            targetValue = Mathf.Clamp(targetValue, MINVALUE, MAXVALUE);
+            targetValue = Mathf.Clamp(targetValue, _minValue, _maxValue);
             yield return Blur(targetValue, duration);
             done?.Invoke();
         }
 
-        public void BlurAmout(float blurAmout)
+        public void BlurAmoutInstant(float blurAmout)
         {
             _blurFeature.FullScreenPass.SetBlurStrength(blurAmout);
         }
 
         #endregion
 
-        #region Blur Controls
-        private IEnumerator Blur(float targetValue, float duration = 1f)
+        #region Private Functions
+        private IEnumerator Blur(float targetValue, float duration = 1f, Action done = null)
         {
             if (_blurFeature == null) yield break;
+
             float elapsedTime = 0f;
             float startBlurValue = _blurFeature.FullScreenPass.GetBlurStrength();
+
             while (elapsedTime < duration)
             {
                 _blurFeature.FullScreenPass.SetBlurStrength(Mathf.Lerp(startBlurValue, targetValue,
@@ -67,6 +78,7 @@ namespace CollieMollie.Shaders
                 yield return null;
             }
             _blurFeature.FullScreenPass.SetBlurStrength(targetValue);
+            done?.Invoke();
         }
 
         #endregion

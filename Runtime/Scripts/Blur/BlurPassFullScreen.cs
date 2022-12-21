@@ -38,6 +38,9 @@ namespace CollieMollie.Shaders
             descriptor.height /= _passSettings.Downsample;
             descriptor.depthBufferBits = 0;
 
+            ConfigureInput(ScriptableRenderPassInput.Depth);
+            ConfigureInput(ScriptableRenderPassInput.Normal);
+
             _colorBuffer = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
             cmd.GetTemporaryRT(_temporaryBufferID, descriptor, FilterMode.Bilinear);

@@ -12,7 +12,7 @@ namespace CollieMollie.Shaders
 
         public override void Create()
         {
-            Settings.BlurMat = CoreUtils.CreateEngineMaterial("CollieMollie/Blur");
+            Settings.BlurMat = CoreUtils.CreateEngineMaterial("CollieMollie/BoxBlur");
             FullScreenPass = new BlurPassFullScreen(Settings);
         }
 
@@ -28,7 +28,7 @@ namespace CollieMollie.Shaders
             public RenderPassEvent RenderPassEvent = RenderPassEvent.AfterRenderingTransparents;
             [HideInInspector] public Material BlurMat = null;
             [Range(1, 4)] public int Downsample = 1;
-            [Range(0, 20)] public float BlurStrength = 5;
+            [Range(0, 100)] public float BlurStrength = 5;
         }
     }
 }
