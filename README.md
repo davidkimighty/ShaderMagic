@@ -32,10 +32,20 @@
 <td><a href="https://github.com/users/hyunwookimbob/projects/2/views/9?filterQuery=repo%3A%22hyunwookimbob%2FShaderMagic%22+label%3A%22Blur+Feature%22+">Blur Feature Board</a></td>
 <td><a href="https://github.com/hyunwookimbob/ShaderMagic/issues?q=milestone%3Av1.0+is%3Aclosed+label%3A%22Blur+Feature%22+">Blur Feature v1.0 Milestone</a></td>
 </tr>
-
 </table>
 
 ## Changelog
+- [v2.0 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/2?closed=1)
 - [v1.0 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/1?closed=1)
+
+<br />
+
+# Fade Feature
+
+
+<br />
+
+# Blur Feature
+
 
 <br />
