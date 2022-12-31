@@ -4,7 +4,7 @@
 **ShaderMagic** is a collection of shaders in Unity URP.
 
 #### [ Development Environment ]
-- **Unity 2022.2.0f1** URP
+- **Unity 2022.2** URP
 - macOS
 
 #### [ Dependencies ]
@@ -35,8 +35,8 @@
 </table>
 
 ## Changelog
-- [v2.0 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/2?closed=1)
-- [v1.0 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/1?closed=1)
+- [v1.0 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/2?closed=1)
+- [v0.1 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/1?closed=1)
 
 <br />
 
