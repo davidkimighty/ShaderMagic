@@ -11,6 +11,9 @@ public class SampleBlurController : MonoBehaviour
 
     private void Start()
     {
-        _blurEventChannel.RaiseEvent(EffectDir.In, _blurAmount, _blurDuration);
+        _blurEventChannel.RaiseEvent(EffectDir.In, _blurAmount, _blurDuration, () =>
+        {
+            _blurEventChannel.RaiseEvent(EffectDir.Out, 0, _blurDuration);
+        });
     }
 }

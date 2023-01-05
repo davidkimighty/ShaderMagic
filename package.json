@@ -1,6 +1,6 @@
 {
     "name": "com.colliemollie.shadermagic",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "displayName": "ShaderMagic",
     "description": "Shaders in URP",
     "unity": "2022.2",

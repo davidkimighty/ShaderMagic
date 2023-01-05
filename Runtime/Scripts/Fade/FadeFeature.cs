@@ -12,6 +12,7 @@ namespace CollieMollie.Shaders
         #region Variable Field
         public FadePass RenderPass = null;
         public PassSetting Settings = new PassSetting();
+
         #endregion
 
         public override void Create()

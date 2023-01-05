@@ -11,6 +11,7 @@ namespace CollieMollie.Shaders
         #region Events
         public event Action<float, float, Action> OnFadeInRequest = null;
         public event Action<float, float, Action> OnFadeOutRequest = null;
+        public event Action<Color, Action> OnColorChangeRequest = null;
 
         #endregion
 
@@ -42,6 +43,12 @@ namespace CollieMollie.Shaders
                     break;
             }
         }
+
+        public void RaiseColorChangeEvent(Color color, Action done = null)
+        {
+            OnColorChangeRequest?.Invoke(color, done);
+        }
+
         #endregion
     }
 }

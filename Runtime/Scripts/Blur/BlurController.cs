@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -13,69 +15,60 @@ namespace CollieMollie.Shaders
 
         [SerializeField] private float _maxValue = 100f;
         [SerializeField] private float _minValue = 0f;
-        [SerializeField] private float _defaultBlurValue = 3f;
-        [SerializeField] private float _defaultDuration = 1f;
         [SerializeField] private AnimationCurve _blurCurve = null;
 
-        private IEnumerator _blurAction = null;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
+
         #endregion
 
-        private void Awake()
+        private void OnEnable()
         {
             _blurEventChannel.OnBlurInRequest += ChangeBlurAmount;
             _blurEventChannel.OnBlurOutRequest += ChangeBlurAmount;
         }
 
+        private void OnDisable()
+        {
+            _blurEventChannel.OnBlurInRequest -= ChangeBlurAmount;
+            _blurEventChannel.OnBlurOutRequest -= ChangeBlurAmount;
+        }
+
         #region Subscribers
         private void ChangeBlurAmount(float blurAmount, float duration, Action done)
         {
-            if (_blurAction != null)
-                StopCoroutine(_blurAction);
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
 
-            if (duration == 0)
+            if (duration <= 0)
             {
                 _blurFeature.FullScreenPass.SetBlurStrength(blurAmount);
                 done?.Invoke();
             }
             else
             {
-                _blurAction = Blur(duration > 0 ? blurAmount : _defaultBlurValue,
-                    duration > 0 ? duration : _defaultDuration, done);
-                StartCoroutine(_blurAction);
+                Task blurTask = BlurAsync(blurAmount, duration, _cts.Token, done);
             }
         }
 
         #endregion
 
-        #region Public Functions
-        public IEnumerator BlurAmount(float targetValue, float duration = 1f, Action done = null)
-        {
-            targetValue = Mathf.Clamp(targetValue, _minValue, _maxValue);
-            yield return Blur(targetValue, duration);
-            done?.Invoke();
-        }
-
-        public void BlurAmoutInstant(float blurAmout)
-        {
-            _blurFeature.FullScreenPass.SetBlurStrength(blurAmout);
-        }
-
-        #endregion
-
         #region Private Functions
-        private IEnumerator Blur(float targetValue, float duration = 1f, Action done = null)
+        private async Task BlurAsync(float targetValue, float duration, CancellationToken token, Action done = null)
         {
-            if (_blurFeature == null) yield break;
+            if (_blurFeature == null) return;
 
             float elapsedTime = 0f;
             float startBlurValue = _blurFeature.FullScreenPass.GetBlurStrength();
 
             while (elapsedTime < duration)
             {
+                token.ThrowIfCancellationRequested();
+
                 _blurFeature.FullScreenPass.SetBlurStrength(Mathf.Lerp(startBlurValue, targetValue,
                     _blurCurve.Evaluate(elapsedTime / duration)));
+
                 elapsedTime += Time.deltaTime;
-                yield return null;
+                await Task.Yield();
             }
             _blurFeature.FullScreenPass.SetBlurStrength(targetValue);
             done?.Invoke();

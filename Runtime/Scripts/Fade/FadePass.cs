@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,7 @@ namespace CollieMollie.Shaders
             if (_fadeMaterial == null) return 0f;
             return _fadeMaterial.GetFloat(s_alphaProperty);
         }
+
         #endregion
     }
 }
