@@ -41,6 +41,19 @@ namespace CollieMollie.Shaders
         #region Subscribers
         private void ChangeFadeAmount(float fadeAmount, float duration, Action done)
         {
+            Task fadeTask = ChangeFadeAmountAsync(fadeAmount, duration, done);
+        }
+
+        private void SetFadeColor(Color color, Action done)
+        {
+            ChangeFadeColor(color, done);
+        }
+
+        #endregion
+
+        #region Public Functions
+        public async Task ChangeFadeAmountAsync(float fadeAmount, float duration, Action done = null)
+        {
             _cts.Cancel();
             _cts = new CancellationTokenSource();
 
@@ -51,11 +64,11 @@ namespace CollieMollie.Shaders
             }
             else
             {
-                Task fadeTask = FadeAsync(fadeAmount, duration, _cts.Token, done);
+                await FadeAsync(fadeAmount, duration, _cts.Token, done);
             }
         }
 
-        private void SetFadeColor(Color color, Action done)
+        public void ChangeFadeColor(Color color, Action done = null)
         {
             _fadeFeature.RenderPass.SetFadeColor(color);
             done?.Invoke();
@@ -67,8 +80,10 @@ namespace CollieMollie.Shaders
         private async Task FadeAsync(float targetValue, float duration, CancellationToken token, Action done = null)
         {
             if (_fadeFeature == null) return;
+
             float elapsedTime = 0f;
             float startFadeValue = _fadeFeature.RenderPass.GetFadeAmount();
+
             while (elapsedTime < duration)
             {
                 token.ThrowIfCancellationRequested();

@@ -36,6 +36,14 @@ namespace CollieMollie.Shaders
         #region Subscribers
         private void ChangeBlurAmount(float blurAmount, float duration, Action done)
         {
+            Task blurTask = ChangeBlurAmountAsync(blurAmount, duration, done);
+        }
+
+        #endregion
+
+        #region Public Functions
+        public async Task ChangeBlurAmountAsync(float blurAmount, float duration, Action done = null)
+        {
             _cts.Cancel();
             _cts = new CancellationTokenSource();
 
@@ -46,7 +54,7 @@ namespace CollieMollie.Shaders
             }
             else
             {
-                Task blurTask = BlurAsync(blurAmount, duration, _cts.Token, done);
+                await BlurAsync(blurAmount, duration, _cts.Token, done);
             }
         }
 
