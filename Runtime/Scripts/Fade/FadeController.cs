@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -20,7 +17,7 @@ namespace CollieMollie.Shaders
         [SerializeField] private float _defaultDuration = 1f;
         [SerializeField] private AnimationCurve _fadeCurve = null;
 
-        private CancellationTokenSource _cts = new CancellationTokenSource();
+        private IEnumerator _fadeCoroutine = null;
 
         #endregion
     
@@ -28,35 +25,19 @@ namespace CollieMollie.Shaders
         {
             _fadeEventChannel.OnFadeInRequest += ChangeFadeAmount;
             _fadeEventChannel.OnFadeOutRequest += ChangeFadeAmount;
-            _fadeEventChannel.OnColorChangeRequest += SetFadeColor;
+            _fadeEventChannel.OnColorChangeRequest += ChangeFadeColor;
         }
 
         private void OnDisable()
         {
             _fadeEventChannel.OnFadeInRequest -= ChangeFadeAmount;
             _fadeEventChannel.OnFadeOutRequest -= ChangeFadeAmount;
-            _fadeEventChannel.OnColorChangeRequest -= SetFadeColor;
+            _fadeEventChannel.OnColorChangeRequest -= ChangeFadeColor;
         }
-
-        #region Subscribers
-        private void ChangeFadeAmount(float fadeAmount, float duration, Action done)
-        {
-            Task fadeTask = ChangeFadeAmountAsync(fadeAmount, duration, done);
-        }
-
-        private void SetFadeColor(Color color, Action done)
-        {
-            ChangeFadeColor(color, done);
-        }
-
-        #endregion
 
         #region Public Functions
-        public async Task ChangeFadeAmountAsync(float fadeAmount, float duration, Action done = null)
+        public void ChangeFadeAmount(float fadeAmount, float duration, Action done = null)
         {
-            _cts.Cancel();
-            _cts = new CancellationTokenSource();
-
             if (duration <= 0)
             {
                 _fadeFeature.RenderPass.SetFadeAmount(fadeAmount);
@@ -64,7 +45,11 @@ namespace CollieMollie.Shaders
             }
             else
             {
-                await FadeAsync(fadeAmount, duration, _cts.Token, done);
+                if (_fadeCoroutine != null)
+                    StopCoroutine(_fadeCoroutine);
+
+                _fadeCoroutine = Fade(fadeAmount, duration, done);
+                StartCoroutine(_fadeCoroutine);
             }
         }
 
@@ -77,22 +62,20 @@ namespace CollieMollie.Shaders
         #endregion
 
         #region Private Functions
-        private async Task FadeAsync(float targetValue, float duration, CancellationToken token, Action done = null)
+        private IEnumerator Fade(float targetValue, float duration, Action done = null)
         {
-            if (_fadeFeature == null) return;
+            if (_fadeFeature == null) yield break;
 
             float elapsedTime = 0f;
             float startFadeValue = _fadeFeature.RenderPass.GetFadeAmount();
 
             while (elapsedTime < duration)
             {
-                token.ThrowIfCancellationRequested();
-
                 _fadeFeature.RenderPass.SetFadeAmount(Mathf.Lerp(startFadeValue, targetValue,
                     _fadeCurve.Evaluate(elapsedTime / duration)));
 
                 elapsedTime += Time.deltaTime;
-                await Task.Yield();
+                yield return null;
             }
             _fadeFeature.RenderPass.SetFadeAmount(targetValue);
             done?.Invoke();
