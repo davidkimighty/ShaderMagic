@@ -1,19 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CollieMollie.Shaders;
 using UnityEngine;
 
 public class SampleBlurController : MonoBehaviour
 {
-    public BlurEventChannel _blurEventChannel = null;
+    public BlurController _blurController = null;
     public float _blurAmount = 10f;
     public float _blurDuration = 3f;
 
-    private void Start()
+    private async Task Start()
     {
-        _blurEventChannel.RaiseEvent(EffectDir.In, _blurAmount, _blurDuration, () =>
-        {
-            _blurEventChannel.RaiseEvent(EffectDir.Out, 0, _blurDuration);
-        });
+        await _blurController.BlurAsync(_blurAmount, _blurDuration);
     }
 }
