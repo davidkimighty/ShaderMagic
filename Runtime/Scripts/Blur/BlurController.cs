@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,13 +6,26 @@ namespace ShaderMagic.Shaders
 {
     public class BlurController : MonoBehaviour
     {
+        [SerializeField] private BlurEventChannel _blurEventChannel = null;
         [SerializeField] private BlurFeature _blurFeature = null;
         [SerializeField] private float _maxValue = 100f;
         [SerializeField] private float _minValue = 0f;
         [SerializeField] private AnimationCurve _blurCurve = null;
 
+        private void OnEnable()
+        {
+            _blurEventChannel.OnRequestBlur += Blur;
+            _blurEventChannel.OnRequestBlurAsync += BlurAsync;
+        }
+
+        private void OnDisable()
+        {
+            _blurEventChannel.OnRequestBlur -= Blur;
+            _blurEventChannel.OnRequestBlurAsync -= BlurAsync;
+        }
+
         #region Public Functions
-        public IEnumerator Blur(float targetValue, float duration, Action done = null)
+        public IEnumerator Blur(float targetValue, float duration)
         {
             if (_blurFeature == null) yield break;
 
@@ -29,10 +41,9 @@ namespace ShaderMagic.Shaders
                 yield return null;
             }
             _blurFeature.FullScreenPass.SetBlurStrength(targetValue);
-            done?.Invoke();
         }
 
-        public async Task BlurAsync(float targetValue, float duration, Action done = null)
+        public async Task BlurAsync(float targetValue, float duration)
         {
             if (_blurFeature == null) return;
 
@@ -48,7 +59,6 @@ namespace ShaderMagic.Shaders
                 await Task.Yield();
             }
             _blurFeature.FullScreenPass.SetBlurStrength(targetValue);
-            done?.Invoke();
         }
 
         #endregion

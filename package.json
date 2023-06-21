@@ -1,6 +1,6 @@
 {
   "name": "com.hyunwookimbob.shadermagic",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "displayName": "ShaderMagic",
   "description": "Shaders in URP",
   "unity": "2022.3",

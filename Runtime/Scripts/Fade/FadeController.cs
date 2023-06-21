@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,21 +6,30 @@ namespace ShaderMagic.Shaders
 {
     public class FadeController : MonoBehaviour
     {
+        [SerializeField] private FadeEventChannel _fadeEventChannel = null;
         [SerializeField] private FadeFeature _fadeFeature = null;
         [SerializeField] private float _maxValue = 10f;
         [SerializeField] private float _minValue = 0f;
         [SerializeField] private float _defaultFadeValue = 3f;
         [SerializeField] private float _defaultDuration = 1f;
         [SerializeField] private AnimationCurve _fadeCurve = null;
-    
-        #region Public Functions
-        public void ChangeColor(Color color, Action done = null)
+
+        private void OnEnable()
         {
-            _fadeFeature.RenderPass.SetFadeColor(color);
-            done?.Invoke();
+            _fadeEventChannel.OnRequestFade += Fade;
+            _fadeEventChannel.OnRequestFadeAsync += FadeAsync;
+            _fadeEventChannel.OnRequestColorChange += ChangeColor;
         }
 
-        public IEnumerator Fade(float targetValue, float duration, Action done = null)
+        private void OnDisable()
+        {
+            _fadeEventChannel.OnRequestFade -= Fade;
+            _fadeEventChannel.OnRequestFadeAsync -= FadeAsync;
+            _fadeEventChannel.OnRequestColorChange -= ChangeColor;
+        }
+
+        #region Public Functions
+        public IEnumerator Fade(float targetValue, float duration)
         {
             if (_fadeFeature == null) yield break;
 
@@ -37,10 +45,9 @@ namespace ShaderMagic.Shaders
                 yield return null;
             }
             _fadeFeature.RenderPass.SetFadeAmount(targetValue);
-            done?.Invoke();
         }
 
-        public async Task FadeAsync(float targetValue, float duration, Action done = null)
+        public async Task FadeAsync(float targetValue, float duration)
         {
             if (_fadeFeature == null) return;
 
@@ -56,7 +63,11 @@ namespace ShaderMagic.Shaders
                 await Task.Yield();
             }
             _fadeFeature.RenderPass.SetFadeAmount(targetValue);
-            done?.Invoke();
+        }
+
+        public void ChangeColor(Color color)
+        {
+            _fadeFeature.RenderPass.SetFadeColor(color);
         }
 
         #endregion
