@@ -1,22 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace CollieMollie.Shaders
+namespace ShaderMagic.Shaders
 {
     public class FadePass : ScriptableRenderPass
     {
-        #region Variable Field
         private static readonly int s_alphaProperty = Shader.PropertyToID("_Alpha");
         private static readonly int s_fadeColorProperty = Shader.PropertyToID("_FadeColor");
 
         private FadeFeature.PassSetting _settings = null;
         private Material _fadeMaterial = null;
-
-        #endregion
 
         public FadePass (FadeFeature.PassSetting settings)
         {

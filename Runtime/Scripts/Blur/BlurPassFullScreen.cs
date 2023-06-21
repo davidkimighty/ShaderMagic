@@ -1,16 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace CollieMollie.Shaders
+namespace ShaderMagic.Shaders
 {
     public class BlurPassFullScreen : ScriptableRenderPass
     {
-        #region Variable Field
-        private const string PROFILER_TAG = "Blur Pass";
+        private const string s_profilerTag = "Blur Pass";
         private static readonly int s_blurStrengthProperty = Shader.PropertyToID("_BlurStrength");
 
         private BlurFeature.PassSetting _passSettings = null;
@@ -18,8 +15,6 @@ namespace CollieMollie.Shaders
         private RenderTargetIdentifier _temporaryBuffer;
         private int _temporaryBufferID = Shader.PropertyToID("_TemporaryBuffer");
         private Material _blurMaterial = null;
-
-        #endregion
 
         public BlurPassFullScreen(BlurFeature.PassSetting passSettings)
         {
@@ -50,7 +45,7 @@ namespace CollieMollie.Shaders
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             CommandBuffer cmd = CommandBufferPool.Get();
-            using (new ProfilingScope(cmd, new ProfilingSampler(PROFILER_TAG)))
+            using (new ProfilingScope(cmd, new ProfilingSampler(s_profilerTag)))
             {
                 cmd.Blit(_colorBuffer, _temporaryBuffer, _blurMaterial, 0);
                 cmd.Blit(_temporaryBuffer, _colorBuffer, _blurMaterial, 1);

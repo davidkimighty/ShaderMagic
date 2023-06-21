@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace CollieMollie.Shaders
+namespace ShaderMagic.Shaders
 {
     public class BlurFeature : ScriptableRendererFeature
     {

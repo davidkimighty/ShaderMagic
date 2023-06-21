@@ -3,15 +3,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace CollieMollie.Shaders
+namespace ShaderMagic.Shaders
 {
     public class FadeFeature : ScriptableRendererFeature
     {
-        #region Variable Field
         public FadePass RenderPass = null;
         public PassSetting Settings = new PassSetting();
-
-        #endregion
 
         public override void Create()
         {

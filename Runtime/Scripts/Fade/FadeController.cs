@@ -2,21 +2,17 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-namespace CollieMollie.Shaders
+namespace ShaderMagic.Shaders
 {
     public class FadeController : MonoBehaviour
     {
-        #region Variable Field
         [SerializeField] private FadeFeature _fadeFeature = null;
         [SerializeField] private float _maxValue = 10f;
         [SerializeField] private float _minValue = 0f;
         [SerializeField] private float _defaultFadeValue = 3f;
         [SerializeField] private float _defaultDuration = 1f;
         [SerializeField] private AnimationCurve _fadeCurve = null;
-
-        #endregion
     
         #region Public Functions
         public void ChangeColor(Color color, Action done = null)

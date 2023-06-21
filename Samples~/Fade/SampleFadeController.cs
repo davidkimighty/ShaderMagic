@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using CollieMollie.Shaders;
+using ShaderMagic.Shaders;
 using UnityEngine;
 
 public class SampleFadeController : MonoBehaviour
