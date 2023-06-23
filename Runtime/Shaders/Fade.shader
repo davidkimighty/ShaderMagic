@@ -1,4 +1,4 @@
-Shader "CollieMollie/Fade"
+Shader "ShaderMagic/Fade"
 {
     Properties
     {

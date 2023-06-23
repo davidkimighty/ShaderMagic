@@ -12,7 +12,7 @@ namespace ShaderMagic.Shaders
 
         public override void Create()
         {
-            Settings.FadeMaterial = CoreUtils.CreateEngineMaterial("CollieMollie/Fade");
+            Settings.FadeMaterial = CoreUtils.CreateEngineMaterial("ShaderMagic/Fade");
             RenderPass = new FadePass(Settings);
         }
 

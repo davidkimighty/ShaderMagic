@@ -1,4 +1,4 @@
-Shader "CollieMollie/BoxBlur"
+Shader "ShaderMagic/BoxBlur"
 {
     Properties
     {

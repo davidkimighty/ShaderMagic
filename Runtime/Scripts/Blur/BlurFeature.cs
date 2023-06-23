@@ -12,7 +12,7 @@ namespace ShaderMagic.Shaders
 
         public override void Create()
         {
-            Settings.BlurMat = CoreUtils.CreateEngineMaterial("CollieMollie/BoxBlur");
+            Settings.BlurMat = CoreUtils.CreateEngineMaterial("ShaderMagic/BoxBlur");
             FullScreenPass = new BlurPassFullScreen(Settings);
         }
 
