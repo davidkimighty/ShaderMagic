@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,11 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30a98fc32bbd46f2b6e4c1e32e6af23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeEventChannel: {fileID: 11400000, guid: 877a1de36afc74d3e8a13d12bc7190f8, type: 2}
-  _fadeController: {fileID: 1033138665}
-  _fadeAmount: 1
-  _fadeDuration: 1
-  _fadeColor: {r: 0.2660199, g: 0.9245283, b: 0.9064516, a: 0}
+  FadeEventChannel: {fileID: 11400000, guid: 7e395b77ab3bb447dac850de7cf765c7, type: 2}
+  FadeAmount: 1
+  FadeDuration: 3
+  FadeColor: {r: 1, g: 0.7779869, b: 0, a: 1}
 --- !u!4 &1033138664
 Transform:
   m_ObjectHideFlags: 0
@@ -290,9 +289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cae12dbaf6684b498e1ea333f449985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeFeature: {fileID: -2482303415955060672, guid: 547c86cb0511b4a0fb3636073a93f59a,
+  _fadeEventChannel: {fileID: 11400000, guid: 7e395b77ab3bb447dac850de7cf765c7, type: 2}
+  _fadeFeature: {fileID: -2413161761826344063, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
-  _fadeEventChannel: {fileID: 11400000, guid: 877a1de36afc74d3e8a13d12bc7190f8, type: 2}
   _maxValue: 1
   _minValue: 0
   _defaultFadeValue: 1
@@ -444,6 +443,7 @@ MonoBehaviour:
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}

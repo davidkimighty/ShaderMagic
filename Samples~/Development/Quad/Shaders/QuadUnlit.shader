@@ -8,17 +8,18 @@ Shader "ShaderMagic/QuadUnlit"
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType" = "Opaque" }
         LOD 100
 
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert_img
-            #pragma fragment TwoColorBlendFragment
+            #pragma vertex Vert
+            #pragma fragment Saturate
             
             #include "UnityCG.cginc"
             #include "QuadUnlitCG.cginc"
+
             ENDCG
         }
     }

@@ -1,16 +1,16 @@
-using System.Threading.Tasks;
 using ShaderMagic.Shaders;
 using UnityEngine;
 
 public class SampleFadeController : MonoBehaviour
 {
-    public FadeController _fadeController = null;
-    public float _fadeAmount = 1f;
-    public float _fadeDuration = 3f;
-    public Color _fadeColor = Color.black;
+    public FadeEventChannel FadeEventChannel = null;
+    public float FadeAmount = 1f;
+    public float FadeDuration = 3f;
+    public Color FadeColor = Color.black;
 
-    private async Task Start()
+    private async void Start()
     {
-        await _fadeController.FadeAsync(_fadeAmount, _fadeDuration);
+        FadeEventChannel.RequestColorChange(FadeColor);
+        await FadeEventChannel.RequestFadeAsync(FadeAmount, FadeDuration);
     }
 }

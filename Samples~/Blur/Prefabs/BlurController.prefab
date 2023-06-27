@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df102b3cbe4c4ae3bf7736c160a3721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blurFeature: {fileID: 8675984305190858339, guid: ef967ccf73a804c76ab2f207d5549db1,
+  _blurEventChannel: {fileID: 11400000, guid: 6a209720900714af0911a2808970d36d, type: 2}
+  _blurFeature: {fileID: -3476715108990381877, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
   _maxValue: 10
   _minValue: 0
@@ -85,6 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9619d7f7be7544cf989d953863dfd2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blurController: {fileID: 3188956999112240017}
-  _blurAmount: 60
-  _blurDuration: 1
+  BlurEventChannel: {fileID: 11400000, guid: 6a209720900714af0911a2808970d36d, type: 2}
+  BlurAmount: 10
+  BlurDuration: 3
