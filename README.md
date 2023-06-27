@@ -3,34 +3,6 @@
 # About
 **ShaderMagic** is a collection of shaders in Unity URP.
 
-#### [ Development Environment ]
-- **Unity 2022.2** URP
-- macOS
-
-#### [ Dependencies ]
-- com.unity.inputsystem: 1.4.4
-
-## Available Features
-<table>
-<tr>
-<th>Features</th>
-<th>Status</th>
-<th>GitHub Project Board</th>
-</tr>
-
-<tr>
-<td><a href="https://github.com/hyunwookimbob/">Fade Feature</a></td>
-<td><kbd>Released</kbd></td>
-<td><a href="https://github.com/users/hyunwookimbob/projects/2/views/9?filterQuery=repo%3A%22hyunwookimbob%2FShaderMagic%22+label%3A%22Fade+Feature%22+">Fade Feature Board</a></td>
-</tr>
-
-<tr>
-<td><a href="https://github.com/hyunwookimbob/">Blur Feature</a></td>
-<td><kbd>Released</kbd></td>
-<td><a href="https://github.com/users/hyunwookimbob/projects/2/views/9?filterQuery=repo%3A%22hyunwookimbob%2FShaderMagic%22+label%3A%22Blur+Feature%22+">Blur Feature Board</a></td>
-</tr>
-</table>
-
 ## Changelog
 - [v0.2 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/2?closed=1)
 - [v0.1 GitHub Milestones](https://github.com/hyunwookimbob/ShaderMagic/milestone/1?closed=1)
