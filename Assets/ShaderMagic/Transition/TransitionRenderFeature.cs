@@ -14,7 +14,7 @@ public class TransitionRenderFeature : ScriptableRendererFeature
     
     public override void Create()
     {
-        _transitionRenderPass = new TransitionRenderPass();
+        _transitionRenderPass = new TransitionRenderPass(_setting);
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)

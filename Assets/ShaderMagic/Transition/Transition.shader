@@ -1,27 +1,32 @@
-Shader "ShaderMagic/Invert"
+Shader "ShaderMagic/Transition"
 {
+    Properties
+    {
+        _start_time ("Start Time", Float) = 0.0
+        _duration ("Duration", Float) = 1.0
+    }
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalPipeline"}
         ZWrite Off Cull Off
         Pass
         {
-            Name "InvertPass"
+            Name "TransitionPass"
             
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
-
+            #include "../Core/color.hlsl"
+            
             #pragma vertex Vert
             #pragma fragment Frag
+
+            float _start_time = 0.1;
+            float _duration = 10.;
             
             float4 Frag(Varyings input) : SV_Target0
             {
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                
-                float2 uv = input.texcoord.xy;
-                half4 color = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearRepeat, uv, _BlitMipLevel);
-                return half4(1, 1, 1, 1) - color;
+               return float4(0, 0, 0, 1);
             }
             ENDHLSL
         }

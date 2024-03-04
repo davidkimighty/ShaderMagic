@@ -1,4 +1,4 @@
-Shader "InvertShader"
+Shader "ShaderMagic/InvertBlit"
 {
     SubShader
     {

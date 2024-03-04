@@ -35,8 +35,10 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  m_RendererFeatureMap: ad6b866f10d7b46c
+  - {fileID: 454333926771757316}
+  m_RendererFeatureMap: ad6b866f10d7b46c0491a39a4c1e4e06
   m_UseNativeRenderPass: 1
+  xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   m_AssetVersion: 2
   m_OpaqueLayerMask:
@@ -58,6 +60,24 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &454333926771757316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699ceb5f2e7354531adf67b2515baaa0, type: 3}
+  m_Name: TransitionRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  _eventChannel: {fileID: 11400000, guid: e17fa53694e9840b588eb566be5330ee, type: 2}
+  _setting:
+    TransitionType: 0
+    TransitionShader: {fileID: 4800000, guid: 5971ef0604dff40b3aac8c16181f435d, type: 3}
+    RenderPassEvent: 600
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +97,10 @@ MonoBehaviour:
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.4
-    DirectLightingStrength: 0.25
+    Intensity: 52.3
+    DirectLightingStrength: 0.226
     Radius: 0.3
-    Samples: 1
+    Samples: 0
     BlurQuality: 0
     Falloff: 100
     SampleCount: -1

@@ -33,4 +33,11 @@ void get_solar_spectrum_float(float wavelength, out float3 color)
     );
 }
 
+void get_fade(float time, float start_time, float duration, inout half4 color)
+{
+    float time_since = time - start_time;
+    float lerp_factor = clamp(time_since / duration, 0., 1.);
+    color.a *= 1. - lerp_factor;
+}
+
 #endif
